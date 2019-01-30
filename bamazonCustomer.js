@@ -43,7 +43,7 @@ const orderProduct = () => {
 
       console.log(itemPicked)
 
-      const productQuantity = dbInventory.stock_quantity;
+      const productQuantity = itemPicked.stock_quantity;
       
       if (order_product > productQuantity) {
         console.log("There's not enough in stock to fulfill that order");
@@ -51,8 +51,10 @@ const orderProduct = () => {
       };
 
       const updatedQuantity = {
-        stock_quantity: (productQuantity - order_product)
+        stock_quantity: productQuantity - order_product
       }
+      
+      console.log(updatedQuantity);
 
       const updatedProduct = {
         id: itemPicked.id
@@ -66,10 +68,11 @@ const orderProduct = () => {
         }
 
         // Let user know their order of product and quantity has been received
-        console.log(`Your order of ${order_product} ${itemPicked} has been placed`)
+        console.log(`Your order of ${order_product} ${itemPicked.product_name} has been placed`)
+        console.log(`Total cost = $${order_product * itemPicked.price}`)
         orderProduct();
       })
-      console.log(query.sql);
     })
+    .catch(err => console.log(err))
   })
 }
