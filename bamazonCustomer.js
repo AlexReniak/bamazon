@@ -7,8 +7,30 @@ dbConnection.connect((err) => {
     throw err;
   }
   console.log("Connection to Bamazon established. Welcome to Bamazon");
-  orderProduct();
+  welcomeMenu();
 });
+
+const welcomeMenu = () => {
+  inquirer.prompt([
+    {
+      name: "bamazon_menu",
+      type: "list",
+      message: "What would you like to do?",
+      choices: ["Enter Bamazon", "Exit"]
+    }
+  ])
+  .then(({ bamazon_menu }) => {
+    console.log(`Answer: ${bamazon_menu}`)
+
+    switch(bamazon_menu) {
+      case "Enter Bamazon":
+        return orderProduct();
+      case "Exit":
+        return process.exit(0);
+    }
+  })
+  .catch(err => console.log(err));
+}
 
 // order product function allows user to order whichever product that is in stock
 const orderProduct = () => {
@@ -25,11 +47,12 @@ const orderProduct = () => {
         name: "place_order",
         type: "list",
         message: "Which item would you like to order?",
-        choices: dbInventory.map(product => product.product_name,)
+        choices: dbInventory.map(product => product.product_name)
       },
       {
         name: "order_product",
         message: "How many would you like?",
+        type: "input",
         validate: function (input) {
           return !isNaN(input);
         },
@@ -76,3 +99,13 @@ const orderProduct = () => {
     .catch(err => console.log(err))
   })
 }
+
+
+
+
+
+
+
+
+
+
