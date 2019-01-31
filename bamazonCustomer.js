@@ -90,6 +90,7 @@ const orderProduct = () => {
           throw err;
         }
 
+
         // Let user know their order of product and quantity has been received
         console.log(`Your order of ${order_product} ${itemPicked.product_name} has been placed`)
         console.log(`Total cost = $${order_product * itemPicked.price}`)

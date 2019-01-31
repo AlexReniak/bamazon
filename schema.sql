@@ -25,3 +25,12 @@ VALUES
   ("ski goggles", "sports", 15, 7),
   ("books", "entertainment", 8, 5),
   ("Honda Civic", "auto", 1000, 2)
+
+
+-- CREATE TABLE departments (
+--   id INTEGER(10) NOT NULL AUTO_INCREMENT,
+--   department_name VARCHAR(50) NOT NULL,
+--   over_head_costs INTEGER(10) NOT NULL,
+--   product_sales INTEGER(10) NOT NULL,
+--   PRIMARY KEY (id)
+-- );
