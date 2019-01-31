@@ -46,10 +46,11 @@ const viewProducts = () => {
       throw err;
     }
 
-    console.table(`\n${currentInv}`);
-  })
+    console.log("\n----------------------------")
+    console.table(currentInv);
 
-  managerMenu();
+    managerMenu();
+  })
 }
 
 // View inventory that has a stock of less than 5
@@ -58,10 +59,11 @@ const lowInventory = () => {
     if (err) {
       throw err;
     }
-    console.table(`\n${currentInv}`);
-  });
+    console.log("\n----------------------------")
+    console.table(currentInv);
 
-  managerMenu();
+    managerMenu();
+  });
 }
 
 // Add stock quantity to inventory
@@ -77,13 +79,24 @@ const addStock = () => {
         type: "list",
         message: "Which product would you like to order more of?",
         choices: currentInv.map(product => product.product_name),
+      },
+      {
+        name: "order_stock",
+        type: "input",
+        message: "How much do you want to order?",
+        validate: function (input) {
+          return !isNaN(input);
+        },
+        filter: function (input) {
+          return parseInt(input);
+        }
       }
     ])
-    .then(({ product_options }) => {
+    .then(({ product_options, order_stock }) => {
 
       const productID = currentInv.find(product => product.product_name === product_options)
       const productQuantity = productID.stock_quantity
-      const addQuantity = productQuantity + 5;
+      const addQuantity = productQuantity + order_stock;
 
       const updateProduct = {
         id: productID.id
@@ -97,12 +110,11 @@ const addStock = () => {
         if (err) {
           throw err;
         }
+        managerMenu();
       })
     })
     .catch(err => console.log(err));
   });
-
-  return managerMenu();
 }
 
 // adds product to inventory
@@ -154,9 +166,9 @@ const addProduct = () => {
       if (err) {
         throw err;
       }
-      console.log(`\n${currentInv}`);
+      console.log("\n----------------------------")
+      console.log(currentInv);
+      managerMenu();
     })
-
-    // managerMenu();
   })
-}
+};
