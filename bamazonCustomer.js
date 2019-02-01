@@ -64,7 +64,6 @@ const orderProduct = () => {
     .then(({ place_order, order_product }) => {
       const itemPicked = dbInventory.find(product => product.product_name === place_order);
 
-      console.log(itemPicked)
 
       const productQuantity = itemPicked.stock_quantity;
       
@@ -76,8 +75,6 @@ const orderProduct = () => {
       const updatedQuantity = {
         stock_quantity: productQuantity - order_product
       }
-      
-      console.log(updatedQuantity);
 
       const updatedProduct = {
         id: itemPicked.id
